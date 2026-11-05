@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HOKBIN · 博客</title>
+<meta name="description" content="个人博客 —— 写写代码，聊聊想法。" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2328;
+    --text-muted: #656d76;
+    --border: #e5e7eb;
+    --accent: #0969da;
+    --accent-hover: #0757be;
+    --tag-bg: #f3f4f6;
+    --code-bg: #f6f8fa;
+    --max-width: 720px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* 顶部导航 */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav .logo {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav .links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 24px;
+    font-size: 0.92rem;
+    transition: color 0.15s ease;
+  }
+  .nav .links a:hover { color: var(--accent); }
+
+  /* 头部介绍区 */
+  .hero {
+    padding: 72px 0 56px;
+  }
+  .hero .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    object-fit: cover;
+  }
+  .hero h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .hero .bio {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin-bottom: 24px;
+  }
+  .social {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .social a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .social a:hover { border-color: var(--accent); color: var(--accent); }
+  .social svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* 通用区块标题 */
+  section { padding: 40px 0; }
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: "";
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* 文章列表 */
+  .post-list { list-style: none; }
+  .post {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .post:first-child { padding-top: 0; }
+  .post .date {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .post h3 {
+    font-size: 1.15rem;
+    font-weight: 650;
+    margin: 6px 0 8px;
+  }
+  .post h3 a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .post h3 a:hover { color: var(--accent); }
+  .post .excerpt {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+  .tag:hover { color: var(--accent); }
+
+  /* 精选项目 */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .project-card h4 {
+    font-size: 1rem;
+    font-weight: 650;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .project-card p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+  }
+  .project-card .lang {
+    margin-top: 12px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  /* 页脚 */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  footer a { color: var(--text-muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 0 40px; }
+    .hero h1 { font-size: 1.6rem; }
+    .projects { grid-template-columns: 1fr; }
+    .nav .links a { margin-left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#top" class="logo">~/HOKBIN</a>
+    <nav class="links">
+      <a href="#posts">文章</a>
+      <a href="#projects">项目</a>
+      <a href="https://github.com/HOKBIN" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top" class="container">
+
+  <!-- ===== 头部介绍：改这里 ===== -->
+  <div class="hero">
+    <img class="avatar" src="https://github.com/HOKBIN.png" alt="头像" />
+    <h1>👋 你好，我是HOKBIN</h1>
+    <p class="bio">
+      一名热爱开源的开发者，喜欢把折腾过的东西写下来。这里记录我在编程、架构与日常思考中的所得，希望能帮到路过的你。
+    </p>
+    <div class="social">
+      <a href="https://github.com/HOKBIN" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:your@email.com">
+        <svg viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-.5a.5.5 0 0 0-.5.5v.216l6 3.6 6-3.6V4a.5.5 0 0 0-.5-.5H2Zm12 2.384-5.486 3.29a1 1 0 0 1-1.028 0L2 5.884V12a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V5.884Z"/></svg>
+        邮箱
+      </a>
+      <a href="https://yourblog.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm-.5 2.5A.5.5 0 0 1 2 4h12a.5.5 0 0 1 .5.5V5l-6.5 3.5L1.5 5v-.5Z"/></svg>
+        独立博客
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== 最新文章 ===== -->
+  <section id="posts">
+    <div class="section-title">最新文章</div>
+    <ul class="post-list">
+      <li class="post">
+        <span class="date">2026 · 10 · 28</span>
+        <h3><a href="#">如何设计一套可维护的前端工程结构</a></h3>
+        <p class="excerpt">从目录划分到依赖管理，聊聊我在多个项目里踩坑后总结出的组织方式。</p>
+        <div class="tags">
+          <a class="tag" href="#">前端工程</a>
+          <a class="tag" href="#">架构</a>
+        </div>
+      </li>
+      <li class="post">
+        <span class="date">2026 · 09 · 15</span>
+        <h3><a href="#">我为什么重新爱上了写技术博客</a></h3>
+        <p class="excerpt">输出倒逼输入。写下来，才是真正学会了。一篇关于写作与成长的随笔。</p>
+        <div class="tags">
+          <a class="tag" href="#">随笔</a>
+          <a class="tag" href="#">成长</a>
+        </div>
+      </li>
+      <li class="post">
+        <span class="date">2026 · 08 · 03</span>
+        <h3><a href="#">从零实现一个极简的静态站点生成器</a></h3>
+        <p class="excerpt">不用框架，只靠标准库，两三白行代码搭一个属于你自己的 SSG。</p>
+        <div class="tags">
+          <a class="tag" href="#">造轮子</a>
+          <a class="tag" href="#">Python</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== 精选项目 ===== -->
+  <section id="projects">
+    <div class="section-title">精选项目</div>
+    <div class="projects">
+      <a class="project-card" href="https://github.com/HOKBIN/项目一" target="_blank" rel="noopener">
+        <h4>项目一名称</h4>
+        <p>一句话说清楚这个项目解决什么问题、亮点在哪。</p>
+        <div class="lang"><span class="dot" style="background:#f1e05a"></span>JavaScript</div>
+      </a>
+      <a class="project-card" href="https://github.com/HOKBIN/项目二" target="_blank" rel="noopener">
+        <h4>项目二名称</h4>
+        <p>一句话说清楚这个项目解决什么问题、亮点在哪。</p>
+        <div class="lang"><span class="dot" style="background:#3572A5"></span>Python</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    © 2026 HOKBIN · 用 ♥ 和纯手工 HTML 搭建 ·
+    <a href="https://github.com/HOKBIN" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
