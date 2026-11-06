@@ -3,321 +3,180 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HOKBIN · 博客</title>
-<meta name="description" content="个人博客 —— 写写代码，聊聊想法。" />
+<title>我的 GitHub 主页</title>
 <style>
-  :root {
-    --bg: #ffffff;
-    --text: #1f2328;
-    --text-muted: #656d76;
-    --border: #e5e7eb;
-    --accent: #0969da;
-    --accent-hover: #0757be;
-    --tag-bg: #f3f4f6;
-    --code-bg: #f6f8fa;
-    --max-width: 720px;
+  :root{
+    --bg:#ffffff; --card:#f6f8fa; --border:#d0d7de;
+    --text:#1f2328; --muted:#656d76; --accent:#0969da; --radius:14px;
   }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.6; padding:0 20px 60px;
+  }
+  header{
+    max-width:900px; margin:0 auto; padding:48px 0 24px;
+    text-align:center; border-bottom:1px solid var(--border);
+  }
+  header img{
+    width:96px;height:96px;border-radius:50%;border:1px solid var(--border);
+  }
+  header h1{margin-top:12px;font-size:28px}
+  header p.bio{color:var(--muted);margin-top:6px}
+  .links{margin-top:14px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .links a{
+    text-decoration:none;color:var(--accent);border:1px solid var(--border);
+    padding:6px 12px;border-radius:999px;font-size:14px;background:var(--card);
+  }
+  section{max-width:900px;margin:0 auto;padding-top:36px}
+  h2{font-size:20px;margin-bottom:16px}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.75;
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;
   }
-
-  .container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 24px;
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:16px;display:flex;flex-direction:column;gap:8px;transition:.2s;
   }
-
-  /* 顶部导航 */
-  header {
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: saturate(180%) blur(8px);
-    border-bottom: 1px solid var(--border);
-    z-index: 10;
-  }
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-  .nav .logo {
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: var(--text);
-    text-decoration: none;
-  }
-  .nav .links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    margin-left: 24px;
-    font-size: 0.92rem;
-    transition: color 0.15s ease;
-  }
-  .nav .links a:hover { color: var(--accent); }
-
-  /* 头部介绍区 */
-  .hero {
-    padding: 72px 0 56px;
-  }
-  .hero .avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    margin-bottom: 24px;
-    object-fit: cover;
-  }
-  .hero h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-  }
-  .hero .bio {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    max-width: 560px;
-    margin-bottom: 24px;
-  }
-  .social {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .social a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.88rem;
-    transition: border-color 0.15s ease, color 0.15s ease;
-  }
-  .social a:hover { border-color: var(--accent); color: var(--accent); }
-  .social svg { width: 16px; height: 16px; fill: currentColor; }
-
-  /* 通用区块标题 */
-  section { padding: 40px 0; }
-  .section-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 28px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-title::before {
-    content: "";
-    width: 4px;
-    height: 20px;
-    background: var(--accent);
-    border-radius: 2px;
-  }
-
-  /* 文章列表 */
-  .post-list { list-style: none; }
-  .post {
-    padding: 22px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .post:first-child { padding-top: 0; }
-  .post .date {
-    color: var(--text-muted);
-    font-size: 0.82rem;
-    font-variant-numeric: tabular-nums;
-  }
-  .post h3 {
-    font-size: 1.15rem;
-    font-weight: 650;
-    margin: 6px 0 8px;
-  }
-  .post h3 a {
-    color: var(--text);
-    text-decoration: none;
-  }
-  .post h3 a:hover { color: var(--accent); }
-  .post .excerpt {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 12px;
-  }
-  .tags { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tag {
-    background: var(--tag-bg);
-    color: var(--text-muted);
-    font-size: 0.78rem;
-    padding: 3px 10px;
-    border-radius: 999px;
-    text-decoration: none;
-  }
-  .tag:hover { color: var(--accent); }
-
-  /* 精选项目 */
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .project-card {
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 18px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s ease, transform 0.15s ease;
-  }
-  .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .project-card h4 {
-    font-size: 1rem;
-    font-weight: 650;
-    margin-bottom: 6px;
-    color: var(--accent);
-  }
-  .project-card p {
-    color: var(--text-muted);
-    font-size: 0.88rem;
-  }
-  .project-card .lang {
-    margin-top: 12px;
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-
-  /* 页脚 */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 32px 0;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    text-align: center;
-  }
-  footer a { color: var(--text-muted); text-decoration: none; }
-  footer a:hover { color: var(--accent); }
-
-  @media (max-width: 600px) {
-    .hero { padding: 48px 0 40px; }
-    .hero h1 { font-size: 1.6rem; }
-    .projects { grid-template-columns: 1fr; }
-    .nav .links a { margin-left: 16px; }
-  }
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .card h3{font-size:16px}
+  .card h3 a{color:var(--text);text-decoration:none}
+  .card h3 a:hover{color:var(--accent)}
+  .card p.desc{font-size:14px;color:var(--muted);min-height:42px}
+  .meta{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .lang{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:50%;background:#999;display:inline-block}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-size:12px;background:#eaeef2;border:1px solid var(--border);padding:2px 8px;border-radius:999px;color:var(--muted)}
+  .loading,.empty{color:var(--muted);font-size:14px;padding:20px 0}
+  .err{color:#cf222e;font-size:14px;padding:20px 0}
+  footer{max-width:900px;margin:40px auto 0;text-align:center;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="container nav">
-    <a href="#top" class="logo">~/HOKBIN</a>
-    <nav class="links">
-      <a href="#posts">文章</a>
-      <a href="#projects">项目</a>
-      <a href="https://github.com/HOKBIN" target="_blank" rel="noopener">GitHub</a>
-    </nav>
+  <!-- 改这里：头像/昵称/简介 -->
+  <img id="avatar" src="https://github.com/hokbin.png" alt="avatar" />
+  <h1>HOKBIN</h1>
+  <p class="bio">嵌入式 / 硬件 / 电机控制 / 开源玩家</p>
+  <div class="links">
+    <a href="https://github.com/hokbin" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:you@example.com">Email</a>
+    <a href="https://blog.csdn.net/qq_39312146?spm=1000.2115.3001.5343" target="_blank" rel="noopener">Blog</a>
   </div>
 </header>
 
-<main id="top" class="container">
-
-  <!-- ===== 头部介绍：改这里 ===== -->
-  <div class="hero">
-    <img class="avatar" src="https://github.com/HOKBIN.png" alt="头像" />
-    <h1>👋 你好，我是HOKBIN</h1>
-    <p class="bio">
-      一名热爱开源的开发者，喜欢把折腾过的东西写下来。这里记录我在编程、架构与日常思考中的所得，希望能帮到路过的你。
-    </p>
-    <div class="social">
-      <a href="https://github.com/HOKBIN" target="_blank" rel="noopener">
-        <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-        GitHub
-      </a>
-      <a href="mailto:your@email.com">
-        <svg viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-.5a.5.5 0 0 0-.5.5v.216l6 3.6 6-3.6V4a.5.5 0 0 0-.5-.5H2Zm12 2.384-5.486 3.29a1 1 0 0 1-1.028 0L2 5.884V12a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V5.884Z"/></svg>
-        邮箱
-      </a>
-      <a href="https://blog.csdn.net/qq_39312146?spm=1000.2115.3001.5343" target="_blank" rel="noopener">
-        <svg viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm-.5 2.5A.5.5 0 0 1 2 4h12a.5.5 0 0 1 .5.5V5l-6.5 3.5L1.5 5v-.5Z"/></svg>
-        独立博客
-      </a>
-    </div>
+<section>
+  <h2>📦 项目（自动读取 GitHub 仓库）</h2>
+  <div id="projects" class="grid">
+    <div class="loading">正在从 GitHub 拉取仓库…</div>
   </div>
+</section>
 
-  <!-- ===== 最新文章 ===== -->
-  <section id="posts">
-    <div class="section-title">最新文章</div>
-    <ul class="post-list">
-      <li class="post">
-        <span class="date">2026 · 10 · 28</span>
-        <h3><a href="#">如何设计一套可维护的前端工程结构</a></h3>
-        <p class="excerpt">从目录划分到依赖管理，聊聊我在多个项目里踩坑后总结出的组织方式。</p>
-        <div class="tags">
-          <a class="tag" href="#">前端工程</a>
-          <a class="tag" href="#">架构</a>
-        </div>
-      </li>
-      <li class="post">
-        <span class="date">2026 · 09 · 15</span>
-        <h3><a href="#">我为什么重新爱上了写技术博客</a></h3>
-        <p class="excerpt">输出倒逼输入。写下来，才是真正学会了。一篇关于写作与成长的随笔。</p>
-        <div class="tags">
-          <a class="tag" href="#">随笔</a>
-          <a class="tag" href="#">成长</a>
-        </div>
-      </li>
-      <li class="post">
-        <span class="date">2026 · 08 · 03</span>
-        <h3><a href="#">从零实现一个极简的静态站点生成器</a></h3>
-        <p class="excerpt">不用框架，只靠标准库，两三白行代码搭一个属于你自己的 SSG。</p>
-        <div class="tags">
-          <a class="tag" href="#">造轮子</a>
-          <a class="tag" href="#">Python</a>
-        </div>
-      </li>
-    </ul>
-  </section>
+<footer>© <span id="year"></span> HOKBIN · Powered by GitHub API</footer>
 
-  <!-- ===== 精选项目 ===== -->
-  <section id="projects">
-    <div class="section-title">精选项目</div>
-    <div class="projects">
-      <a class="project-card" href="https://github.com/HOKBIN/项目一" target="_blank" rel="noopener">
-        <h4>项目一名称</h4>
-        <p>一句话说清楚这个项目解决什么问题、亮点在哪。</p>
-        <div class="lang"><span class="dot" style="background:#f1e05a"></span>JavaScript</div>
-      </a>
-      <a class="project-card" href="https://github.com/HOKBIN/项目二" target="_blank" rel="noopener">
-        <h4>项目二名称</h4>
-        <p>一句话说清楚这个项目解决什么问题、亮点在哪。</p>
-        <div class="lang"><span class="dot" style="background:#3572A5"></span>Python</div>
-      </a>
-    </div>
-  </section>
+<script>
+/* ========== 配置 ========== */
+const GITHUB_USER = 'hokbin';   // ← 只改这里
+const MAX_REPOS = 12;              // 最多展示几个
+const HIDE_FORKS = true;           // 隐藏 fork
+const HIDE_ARCHIVED = true;        // 隐藏归档仓库
+const HIDE_NO_DESC = true;         // 隐藏没描述的
 
-</main>
+/* 语言颜色（GitHub 风格） */
+const LANG_COLORS = {
+  JavaScript:'#f1e05a', TypeScript:'#3178c6', Python:'#3572A5',
+  C:'#555555', 'C++':'#f34b7d', HTML:'#e34c26', CSS:'#563d7c',
+  Shell:'#89e051', Go:'#00ADD8', Rust:'#dea584', Java:'#b07219',
+  Vue:'#41b883', Dockerfile:'#384d54'
+};
 
-<footer>
-  <div class="container">
-    © 2026 HOKBIN
-    <a href="https://github.com/HOKBIN" target="_blank" rel="noopener">GitHub</a>
-  </div>
-</footer>
+/* ========== 工具 ========== */
+const $ = (id) => document.getElementById(id);
+function el(tag, cls, text){
+  const n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(text != null) n.textContent = text;   // textContent 防 XSS
+  return n;
+}
+function timeAgo(iso){
+  const d = new Date(iso), now = new Date();
+  const days = Math.floor((now - d)/86400000);
+  if(days <= 0) return '今天更新';
+  if(days < 30) return days + ' 天前更新';
+  if(days < 365) return Math.floor(days/30) + ' 个月前更新';
+  return Math.floor(days/365) + ' 年前更新';
+}
 
+/* ========== 拉数据 ========== */
+async function loadRepos(){
+  const box = $('projects');
+  try{
+    const res = await fetch(
+      `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100`,
+      { headers: { 'Accept':'application/vnd.github.v3+json' } }
+    );
+    if(res.status === 403) throw new Error('GitHub API 限流了（60次/小时），稍后再试');
+    if(!res.ok) throw new Error('用户不存在或接口异常：' + res.status);
+    let repos = await res.json();
+
+    repos = repos
+      .filter(r => !HIDE_FORKS || !r.fork)
+      .filter(r => !HIDE_ARCHIVED || !r.archived)
+      .filter(r => !HIDE_NO_DESC || (r.description && r.description.trim()))
+      .sort((a,b) => b.stargazers_count - a.stargazers_count || new Date(b.pushed_at) - new Date(a.pushed_at))
+      .slice(0, MAX_REPOS);
+
+    box.innerHTML = '';
+    if(!repos.length){
+      box.appendChild(el('div','empty','没有可展示的公开仓库'));
+      return;
+    }
+
+    repos.forEach(r => {
+      const card = el('div','card');
+
+      const h3 = el('h3');
+      const a = el('a');
+      a.href = r.html_url; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = r.name;
+      h3.appendChild(a);
+
+      card.appendChild(h3);
+      card.appendChild(el('p','desc', r.description || ''));
+
+      const meta = el('div','meta');
+
+      if(r.language){
+        const lang = el('span','lang');
+        const dot = el('span','dot');
+        dot.style.background = LANG_COLORS[r.language] || '#999';
+        lang.appendChild(dot);
+        lang.appendChild(document.createTextNode(r.language));
+        meta.appendChild(lang);
+      }
+      meta.appendChild(el('span',null,'⭐ ' + r.stargazers_count));
+      meta.appendChild(el('span',null,'🍴 ' + r.forks_count));
+      meta.appendChild(el('span',null, timeAgo(r.pushed_at)));
+      card.appendChild(meta);
+
+      if(r.topics && r.topics.length){
+        const tags = el('div','tags');
+        r.topics.slice(0,4).forEach(t => tags.appendChild(el('span','tag','#'+t)));
+        card.appendChild(tags);
+      }
+
+      box.appendChild(card);
+    });
+  }catch(e){
+    box.innerHTML = '';
+    box.appendChild(el('div','err', e.message));
+  }
+}
+
+$('year').textContent = new Date().getFullYear();
+loadRepos();
+</script>
 </body>
 </html>
